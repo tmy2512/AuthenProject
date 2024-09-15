@@ -1,0 +1,72 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container">
+    <!-- Display the success message if it exists -->
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <p>@ViewBag.Message</p>
+    }
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center">Login</h2>
+            <form id="loginForm" action="https://localhost:5001/api/user/login" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary g-recaptcha"
+                        data-sitekey="6LfrfUAqAAAAAGPk7_gtIDFs9Z7lkR0WOn_QBf9q"
+                        data-callback='onSubmit'
+                        data-action='submit'>
+                    Login
+                </button>
+            </form>
+            <div class="signin-link">
+                <p>Don't have an account? <a href="@Url.Action("RegisterUser", "Home")" class="signin-link-text">Register now</a></p>
+            </div>
+            <div id="message" class="mt-3"></div>
+        </div>
+    </div>
+</div>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Custom Script -->
+<script>
+    function onSubmit(token) {
+        document.getElementById("loginForm").submit();
+    }
+</script>
+@* <script>
+    $(document).ready(function () {
+        $('#loginForm').on('submit', function (e) {
+            e.preventDefault(); // Ngăn gửi form theo cách thông thường
+
+            var email = $('#email').val();
+            var password = $('#password').val();
+
+            console.log(email);
+            $.ajax({
+                url: 'https://localhost:5001/api/user/login', 
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ email: email, password: password }),
+                success: function (response) {
+                    $('#message').html('<div class="alert alert-success">Login successful!</div>');
+                },
+                error: function (xhr, status, error) {
+                    $('#message').html('<div class="alert alert-danger">Login failed: ' + JSON.parse(xhr.responseText).message + '</div>');
+                }
+            });
+        });
+    });
+</script> *@
